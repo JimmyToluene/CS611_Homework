@@ -1,3 +1,4 @@
+package core;
 
 abstract class GameBoard {
     protected int[] board;
