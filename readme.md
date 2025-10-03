@@ -1,128 +1,128 @@
-# <CS611_SlidingPuzzle_hw1>
----------------------------------------------------------------------------
+Absolutely 👍 — since you now have the **refactored package structure** (`controller`, `core`, `io`, `prompt`, `render`) *plus* some legacy files, I’ll give you an updated `README.md` that:
 
-## Files
----------------------------------------------------------------------------
-GameBoard.java: This class is an abstract class, which will be extended by class SlidinggameBoard. It just defined some basic members and abstract method for future detail implementation.
+1. Explains the new layered architecture
+2. Mentions how to handle the old edition (`legacy`/remove)
+3. Documents commit conventions (your **Team-style**)
 
-SlidingPuzzleBoard.java: This class is a sub-class of Chessboard. Which realized parent’s methods and members. Also, it has its own methods and data members.
-
-GameInput.java: This class is a functional class for handle I/O of this class.
-
-GamePrompt.java: This class also is a functional class for store and print I/O prompt message.
-
-GameActions.java: This class is a core part class in this project. It defines the rule of movement about this sliding game and also defines the game rules.
-(In future this class will rewrite for more general usage)
-
-Main.java: Main class of this project, which defines game rules and detailed flow of this game
-
-## Notes
----------------------------------------------------------------------------
-1. We use the polymorphism and inheritance features in this project. More detailly, the class relationship between GameBoard and SlidingPuzzleBoard is inheritance. And SlidingPuzzleBoard is a polymorphism of his base-class. This feature allows us in future fully reuse this project designs and class.
-
-2.I adopt decoupling design idea in this project. Such as I create many tool classes, like classes GameInput and GamePrompt, it will help our future development be more easily and maximize the reuse of current classes.
-
-3.The input methods are considered to handle not only valid input but also should handle some invalid or malicious inputs. This feature ensures this project robustness.
-
-4.The class GameBoard enables create varies size board, like 3x3, 4x4.
-
-5.The UI is user-friendly and some warning prompt colored for better display.
+Here’s a clean draft:
 
 
-## How to compile and run
----------------------------------------------------------------------------
-Your directions on how to run the code. Make sure to be as thorough as possible!
+# CS611 Homework – Sliding Puzzle (Refactored Edition)
 
-Compile: javac -d out/CS611_SlidingPuzzle_hw1 src/*.java
-Run: java out/CS611_SlidingPuzzle_hw1/Main
+This project implements the **Sliding Puzzle game** in Java, refactored with a modular, layered architecture to separate **core logic**, **I/O**, **prompts**, **rendering**, and **controllers**.
 
-## Input/Output Example
----------------------------------------------------------------------------
-🎉 WELCOME TO JIMMY'S SLIDING PUZZLE GAME!! 🎉
----------------------------------------------------------------------------------------------------------------------------
-Enter chessboard size (>= 2): 2
----------------------------------------------------------------------------------------------------------------------------
-SUCCESS! CURRENT CREATED BOARD SIZE IS: 2x2
-----------------------------------------------------------------------------------
-+---+---+
-| 3 |   1 |
-+---+---+
-| 2 |       |
-+---+---+
-----------------------------------------------------------------------------------
-Player, which tile do you want to slide to the empty space?
-Please enter a number. Valid: [2, 1]
-1
-----------------------------------------------------------------------------------
-+---+---+
-| 3 |      |
-+---+---+
-| 2 |   1 |
-+---+---+
-----------------------------------------------------------------------------------
-Player, which tile do you want to slide to the empty space?
-Please enter a number. Valid: [3, 1]
-3
-----------------------------------------------------------------------------------
-+---+---+
-|      | 3 |
-+---+---+
-| 2   | 1 |
-+---+---+
-----------------------------------------------------------------------------------
-Player, which tile do you want to slide to the empty space?
-Please enter a number. Valid: [3, 2]
-2
-----------------------------------------------------------------------------------
-+---+---+
-| 2   | 3 |
-+---+---+
-|      | 1 |
-+---+---+
-----------------------------------------------------------------------------------
-Player, which tile do you want to slide to the empty space?
-Please enter a number. Valid: [1, 2]
-1
-----------------------------------------------------------------------------------
-+---+---+
-| 2  |  3 |
-+---+---+
-| 1  |     |
-+---+---+
-----------------------------------------------------------------------------------
-Player, which tile do you want to slide to the empty space?
-Please enter a number. Valid: [1, 3]
-3
-----------------------------------------------------------------------------------
-+---+---+
-| 2  |     |
-+---+---+
-| 1  |  3 |
-+---+---+
-----------------------------------------------------------------------------------
-Player, which tile do you want to slide to the empty space?
-Please enter a number. Valid: [2, 3]
-2
-----------------------------------------------------------------------------------
-+---+---+
-|     |  2 |
-+---+---+
-| 1  |  3 |
-+---+---+
-----------------------------------------------------------------------------------
-Player, which tile do you want to slide to the empty space?
-Please enter a number. Valid: [2, 1]
-1
-----------------------------------------------------------------------------------
-+---+---+
-| 1  |  2 |
-+---+---+
-|      | 3 |
-+---+---+
-----------------------------------------------------------------------------------
-Player, which tile do you want to slide to the empty space?
-Please enter a number. Valid: [3, 1]
-3
-🥳 YOU WIN!
+---
+
+## 📂 Project Structure
+
+src/
+├── controller/
+│   ├── GameController.java          # Generic controller contract
+│   └── SlidePuzzleController.java   # Sliding puzzle game loop
+│
+├── core/
+│   ├── GameBoard.java               # Abstract N×N board
+│   ├── SlidePuzzleBoard.java        # Pure board state + rules (no I/O)
+│   └── Main.java                    # Entry point wiring IO + prompts + renderer
+│
+├── io/
+│   ├── GameIO.java                  # I/O abstraction
+│   └── ConsoleIO.java               # Console implementation of I/O
+│
+├── prompt/
+│   ├── Prompter.java                # Message provider interface
+│   └── SlidePuzzlePrompter.java     # Sliding puzzle messages
+│
+├── render/
+    ├── BoardRenderer.java           # Rendering abstraction
+    └── ConsoleSlidePuzzleRenderer.java # Console renderer for sliding puzzle
+
+
+## 🎮 How It Works
+
+- **Core (`core`)**  
+  Pure game logic and board state. No console, no printing.
+  
+- **IO (`io`)**  
+  Abstract input/output via `GameIO`. `ConsoleIO` provides a CLI implementation.
+  
+- **Prompts (`prompt`)**  
+  Centralized text catalog. Prompter interface allows for localization or custom themes.
+  
+- **Renderer (`render`)**  
+  Responsible for displaying the board state. Console-based grid renderer provided.
+  
+- **Controller (`controller`)**  
+  Orchestrates game loop (render → prompt → input → validate → apply).  
+  Example: `SlidePuzzleController` for the sliding puzzle.
+
+- **Main (`core/Main.java`)**  
+  Wires together `ConsoleIO`, `SlidePuzzlePrompter`, `ConsoleSlidePuzzleRenderer`, and `SlidePuzzleController`.
+
+---
+
+## 🚀 Running the Game
+
+From project root:
+```
+cd src
+javac */*.java core/Main.java
+java core.Main
+```
+
+
+## 🧩 Development Guidelines
+
+* **One concern per layer**
+
+  * Core = rules only, no I/O
+  * IO = transport only, no game-specific prompts
+  * Prompt = messages only, no printing
+  * Renderer = draw only, no rules
+  * Controller = orchestrates game loop
+* **Keep it testable**
+  Use `GameIO` mocks in tests to simulate user input.
+
+---
+
+## ✅ Commit Convention (Team-style)
+
+We follow a **Team-type commit convention**:
+
+```
+Team(<scope>): <summary>
+```
+
+### Types
+
+* `feat` → new feature
+* `refactor` → internal refactor (no functional change)
+* `fix` → bug fix
+* `test` → test-related changes
+* `docs` → documentation changes
+* `chore` → misc / cleanup
+
+### Scopes
+
+* `core` → board/game logic
+* `io` → I/O abstraction or console impl
+* `prompt` → prompts/messages
+* `render` → rendering layer
+* `controller` → game loop controllers
+* `app` → main wiring / application entrypoint
+* `test` → tests
+* `docs` → docs/meta
+
+### Examples
+
+
+Team(core): refactor SlidePuzzleBoard to remove I/O
+Team(io): add ConsoleIO implementing GameIO
+Team(controller): implement SlidePuzzleController with IO + Prompter + Renderer
+Team(app): update Main to compose IO + prompts + renderer + controller
+Team(chore): remove legacy flat-structure classes after refactor
+```
+
+
 
 
