@@ -1,4 +1,4 @@
-package io;
+package prompt;
 
 import java.util.List;
 
@@ -8,4 +8,7 @@ public interface Prompter {
     String win();
     String errorInvalidMove(List<Integer> validMoves);
     String splitLine();
+    String askBoardSizePrompt();
+    String errorInvalidSize();
+    String errorExpectInteger();
 }
