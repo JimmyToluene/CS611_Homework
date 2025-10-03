@@ -15,6 +15,7 @@ This project implements the **Sliding Puzzle game** in Java, refactored with a m
 
 ## 📂 Project Structure
 
+```
 src/
 ├── controller/
 │   ├── GameController.java          # Generic controller contract
@@ -36,7 +37,7 @@ src/
 ├── render/
     ├── BoardRenderer.java           # Rendering abstraction
     └── ConsoleSlidePuzzleRenderer.java # Console renderer for sliding puzzle
-
+```
 
 ## 🎮 How It Works
 
@@ -59,7 +60,6 @@ src/
 - **Main (`core/Main.java`)**  
   Wires together `ConsoleIO`, `SlidePuzzlePrompter`, `ConsoleSlidePuzzleRenderer`, and `SlidePuzzleController`.
 
----
 
 ## 🚀 Running the Game
 
