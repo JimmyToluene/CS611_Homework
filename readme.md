@@ -1,12 +1,3 @@
-Absolutely 👍 — since you now have the **refactored package structure** (`controller`, `core`, `io`, `prompt`, `render`) *plus* some legacy files, I’ll give you an updated `README.md` that:
-
-1. Explains the new layered architecture
-2. Mentions how to handle the old edition (`legacy`/remove)
-3. Documents commit conventions (your **Team-style**)
-
-Here’s a clean draft:
-
-
 # CS611 Homework – Sliding Puzzle (Refactored Edition)
 
 This project implements the **Sliding Puzzle game** in Java, refactored with a modular, layered architecture to separate **core logic**, **I/O**, **prompts**, **rendering**, and **controllers**.
