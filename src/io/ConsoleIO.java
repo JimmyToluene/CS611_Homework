@@ -11,6 +11,7 @@ public class ConsoleIO implements GameIO{
     public int askBoardSize(GameIO io, Prompter p) {
         while (true) {
             io.println(p.askBoardSizePrompt());                      // e.g., "Enter board size (>= 2):"
+
             String line = io.readLine();
             try {
                 int n = Integer.parseInt(line.trim());
