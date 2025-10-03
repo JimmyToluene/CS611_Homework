@@ -115,7 +115,7 @@ Team(<scope>): <summary>
 
 ### Examples
 
-
+```
 Team(core): refactor SlidePuzzleBoard to remove I/O
 Team(io): add ConsoleIO implementing GameIO
 Team(controller): implement SlidePuzzleController with IO + Prompter + Renderer
