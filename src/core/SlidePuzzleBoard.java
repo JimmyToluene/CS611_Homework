@@ -1,8 +1,10 @@
+package core;
+
 import java.util.Scanner;
 
-//Here is the realization of our slide puzzle GameBoard,this class defines members such like int[] board,int length,
+//Here is the realization of our slide puzzle core.GameBoard,this class defines members such like int[] board,int length,
 //which is vital in a game.
-public class SlidingPuzzleBoard extends GameBoard {
+public class SlidePuzzleBoard extends GameBoard {
     private int[] targetBoard;
 
     public int getBoardLength() {
@@ -79,43 +81,20 @@ public class SlidingPuzzleBoard extends GameBoard {
 
         board = java.util.Arrays.copyOf(targetBoard, targetBoard.length);
         scrambleByRandomMoves(board, n, steps, new java.util.Random());
-        GamePrompt.printSplitLine();
+        /*GamePrompt.printSplitLine();
         System.out.println(GamePrompt.GREEN+"SUCCESS! "+GamePrompt.RESET+
                 "CURRENT CREATED BOARD SIZE IS: " + n +"x"+n
-        );
+        );*/
 
     }
-    public void printBoard(SlidingPuzzleBoard puzzleBoard) {
-        int[] board = puzzleBoard.getBoard();
-        int length = puzzleBoard.getBoardLength();
-        int width = (String.valueOf(length).length()) * 2;
 
-        for (int i = 0; i < length; i++) {
-            System.out.print(repeat("+---",length)+"+\n");
-            for (int j = 0; j < length; j++) {
-                System.out.print("|");
-                int val = board[(i * length) + j];
-                if (val == 0) {
-                    System.out.printf("%" + width + "s ", " ");
-                } else if(String.valueOf(val).length() == 2) {
-                    System.out.printf("%" + width + "d ", val);
-                }
-                else{
-                    System.out.printf("%" + width + "d ", val);
-                }
-            }
-            System.out.print("|");
-            System.out.println();
-        }
-        System.out.print(repeat("+---",length)+"+\n");
-    }
-    public void swapBoardElements(int i,int j) {
+    public void swap(int i,int j) {
         int temp = board[i];
         board[i] = board[j];
         board[j] = temp;
     }
 
-    public SlidingPuzzleBoard(int n, int steps) {
+    public SlidePuzzleBoard(int n, int steps) {
         createBoard(n,steps);
         this.length = (int) Math.sqrt(board.length);
     }
