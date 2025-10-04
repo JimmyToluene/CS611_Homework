@@ -1,37 +1,23 @@
-package core;
+/*package core;
 
-public class DotsAndBoxesTile extends GameTile {
-    private String[][] horizontalEdges;
-    private String[][] verticalEdges;
+import io.GameIO;
+import prompt.Prompter;
+import render.BoardRenderer;
+
+public class DotsAndBoxesTile extends Game<Board> {
     private int row;
     private int column;
 
-    @Override
-    public int[] getBoard() {
-        return new int[0];
+
+    public DotsAndBoxesTile(GameIO io, Prompter prompter,
+                            BoardRenderer<Board> renderer, int size,
+                            int scrambleSteps) {
+        super(io, prompter, renderer);
+        initBoard(row,column);
     }
 
     @Override
-    public int getBoardLength() {
-        return 0;
-    }
-
-    public int getRow() {
-        return row;
-    }
-    public int getColumn() {
-        return column;
-    }
-    public String[][] getHorizontalEdges() {
-        return horizontalEdges;
-    }
-    public String[][] getVerticalEdges() {
-        return verticalEdges;
-    }
-
-    public DotsAndBoxesTile(int row, int column) {
-        this.row = row;
-        this.column = column;
+    protected void initBoard(int row,int column) {
         horizontalEdges = new String[row][column - 1];
         for (int r = 0; r < row; r++) {
             for (int c = 0; c < column - 1; c++) {
@@ -45,4 +31,21 @@ public class DotsAndBoxesTile extends GameTile {
             }
         }
     }
-}
+
+    @Override
+    protected void initBoard() {
+        board = new Board();
+        Board horizontalEdges = new Board(row, column - 1);
+
+    }
+
+    @Override
+    protected boolean isSolved() {
+        return false;
+    }
+
+    @Override
+    protected void move() {
+
+    }
+}*/

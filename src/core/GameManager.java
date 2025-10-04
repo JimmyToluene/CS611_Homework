@@ -1,14 +1,17 @@
 package core;
 
-import controller.SlidePuzzleController;
+import io.ConsoleIO;
 import io.GameIO;
 import prompt.GameChoicePrompter;
 import prompt.Prompter;
 import prompt.SlidePuzzlePrompter;
-import prompt.DotsBoxesPrompter;
-import render.BoardRenderer;
-import render.ConsoleSlidePuzzleRenderer;
+import render.ConsoleBoardRenderer;
 
+/**
+ * High‑level coordinator that selects which game to run based on user
+ * input.  It decouples game selection and initialisation from the
+ * implementations themselves.
+ */
 public class GameManager {
     private final GameIO io;
 
@@ -16,27 +19,35 @@ public class GameManager {
         this.io = io;
     }
 
+    /**
+     * Present a menu of games and start the chosen one.
+     */
     public void startGame() {
-        GameChoicePrompter gameChoicePrompter = new GameChoicePrompter();
-        String gameChoice = gameChoicePrompter.promptGameChoice(io);
-        
-        if (gameChoice.equalsIgnoreCase("slide")) {
-            startSlidePuzzle();
-        } else if (gameChoice.equalsIgnoreCase("dots")) {
+        GameChoicePrompter chooser = new GameChoicePrompter();
+        String choice = chooser.promptGameChoice(io);
+        if (choice.equals("slide")) {
+            startSlidingPuzzle();
+        } else if (choice.equals("dots")) {
             startDotsAndBoxes();
         }
     }
 
-    private void startSlidePuzzle() {
-        Prompter prompts = new SlidePuzzlePrompter();
-        BoardRenderer<SlidePuzzleTile> renderer = new ConsoleSlidePuzzleRenderer();
-        SlidePuzzleController controller = new SlidePuzzleController(io, prompts, renderer);
-        SlidePuzzleTile board = new SlidePuzzleTile(SlidePuzzleTile.getBoardSize(), 20);
-        controller.run(board);
+    /**
+     * Initialise and run the sliding puzzle using the new game architecture.
+     */
+    private void startSlidingPuzzle() {
+        Prompter prompter = new SlidePuzzlePrompter();
+        // ask for board size; cast to ConsoleIO to access askBoardSize helper
+        int size = ((ConsoleIO) io).askBoardSize(io, prompter);
+        SlidingPuzzleGame game = new SlidingPuzzleGame(io, prompter,
+                new ConsoleBoardRenderer(), size, 20);
+        game.play();
     }
 
+    /**
+     * Placeholder for future Dots and Boxes implementation.
+     */
     private void startDotsAndBoxes() {
-        Prompter prompts = new DotsBoxesPrompter();
-        io.println("Dots and Boxes game is not yet implemented");
+        io.println("Dots and Boxes game is not yet implemented.");
     }
 }
