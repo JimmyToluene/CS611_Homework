@@ -1,13 +1,13 @@
 package render;
-import core.SlidePuzzleBoard;
+import core.SlidePuzzleTile;
 import io.GameIO;
 
-public class ConsoleSlidePuzzleRenderer implements BoardRenderer<SlidePuzzleBoard> {
+public class ConsoleSlidePuzzleRenderer implements BoardRenderer<SlidePuzzleTile> {
     private static String repeat(String s, int count) {
         return s.repeat(Math.max(0, count));
     }
 
-    @Override public void render(SlidePuzzleBoard board, GameIO io) {
+    @Override public void render(SlidePuzzleTile board, GameIO io) {
         int[] a = board.getBoard();
         int n = board.getBoardLength();
         int width = (String.valueOf(n).length()) * 2; // your previous logic

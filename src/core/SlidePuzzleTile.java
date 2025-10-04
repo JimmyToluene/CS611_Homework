@@ -2,9 +2,9 @@ package core;
 
 import java.util.Scanner;
 
-//Here is the realization of our slide puzzle core.GameBoard,this class defines members such like int[] board,int length,
+//Here is the realization of our slide puzzle core.GameTile,this class defines members such like int[] board,int length,
 //which is vital in a game.
-public class SlidePuzzleBoard extends GameBoard {
+public class SlidePuzzleTile extends GameTile {
     private int[] targetBoard;
 
     public int getBoardLength() {
@@ -94,7 +94,7 @@ public class SlidePuzzleBoard extends GameBoard {
         board[j] = temp;
     }
 
-    public SlidePuzzleBoard(int n, int steps) {
+    public SlidePuzzleTile(int n, int steps) {
         createBoard(n,steps);
         this.length = (int) Math.sqrt(board.length);
     }

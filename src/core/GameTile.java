@@ -1,6 +1,6 @@
 package core;
 
-abstract class GameBoard {
+abstract class GameTile {
     protected int[] board;
     protected int length;
 
