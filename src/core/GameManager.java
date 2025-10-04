@@ -1,6 +1,5 @@
 package core;
 
-import controller.GameController;
 import controller.SlidePuzzleController;
 import io.GameIO;
 import prompt.GameChoicePrompter;
@@ -30,9 +29,9 @@ public class GameManager {
 
     private void startSlidePuzzle() {
         Prompter prompts = new SlidePuzzlePrompter();
-        BoardRenderer<SlidePuzzleBoard> renderer = new ConsoleSlidePuzzleRenderer();
+        BoardRenderer<SlidePuzzleTile> renderer = new ConsoleSlidePuzzleRenderer();
         SlidePuzzleController controller = new SlidePuzzleController(io, prompts, renderer);
-        SlidePuzzleBoard board = new SlidePuzzleBoard(SlidePuzzleBoard.getBoardSize(), 20);
+        SlidePuzzleTile board = new SlidePuzzleTile(SlidePuzzleTile.getBoardSize(), 20);
         controller.run(board);
     }
 

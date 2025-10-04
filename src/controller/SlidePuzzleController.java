@@ -1,7 +1,7 @@
 package controller;
 import prompt.Prompter;
 import io.GameIO;
-import core.SlidePuzzleBoard;
+import core.SlidePuzzleTile;
 import render.BoardRenderer;
 
 import java.util.ArrayList;
@@ -10,16 +10,16 @@ import java.util.List;
 public class SlidePuzzleController {
     private final GameIO io;
     private final Prompter prompts;
-    private final BoardRenderer<SlidePuzzleBoard> renderer;
+    private final BoardRenderer<SlidePuzzleTile> renderer;
 
-    public SlidePuzzleController(GameIO io, Prompter prompts, BoardRenderer<SlidePuzzleBoard> renderer) {
+    public SlidePuzzleController(GameIO io, Prompter prompts, BoardRenderer<SlidePuzzleTile> renderer) {
         this.io = io;
         this.prompts = prompts;
         this.renderer = renderer;
     }
 
 
-    public void run(SlidePuzzleBoard board) {
+    public void run(SlidePuzzleTile board) {
         while (!java.util.Arrays.equals(board.getBoard(), board.getTargetBoard())) {
             renderer.render(board, io);
             io.println(prompts.askMove());
@@ -51,7 +51,7 @@ public class SlidePuzzleController {
         }
     }
 
-    private List<Integer> movableTiles(SlidePuzzleBoard b) {
+    private List<Integer> movableTiles(SlidePuzzleTile b) {
         int[] a = b.getBoard();
         int n = b.getBoardLength();
         // find zero
@@ -70,7 +70,7 @@ public class SlidePuzzleController {
         return moves;
     }
 
-    private void applyMove(SlidePuzzleBoard b, int choice) {
+    private void applyMove(SlidePuzzleTile b, int choice) {
         int[] a = b.getBoard();
         int n = b.getBoardLength();
         // find zero
